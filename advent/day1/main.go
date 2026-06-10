@@ -26,42 +26,24 @@ func main(){
 	
 	values := strings.Split(string(data), "\n")
 
-	for i, value := range values {
-		fmt.Printf("Current Dial position: %d\n", start)
-		fmt.Printf("Current count: %d\n", count)
+	for _, value := range values {
 		if value == "" {
 			continue
 		}
-		fmt.Printf("Index: %d Value: %s\n", i, value)
 
 		direction := string(value[0])
-		fmt.Printf("d: %s\n",direction)
-
-		if direction == "R" {
-			n, err := convertInt(value)
-			if err != nil {
-				log.Fatal(err)
-			}
-			start += n
-			fmt.Printf("combo: %d\n", start)
-			calc := start % 100
-			if calc ==  0{
-				fmt.Printf("Calc: %d\n", calc)
-				count++
-			}
+		rotateBy, err := convertInt(value)
+		if err != nil {
+			log.Fatal(err)
 		}
-		if direction == "L" {
-			n, err := convertInt(value)
-			fmt.Printf("rotateBy: %d\n", n)
-			if err != nil {
-				log.Fatal(err)
+
+		for i:=0; i<rotateBy; i++ {
+			if direction == "L" {
+				start -= 1
+			} else {
+				start += 1
 			}
-			
-			start -= n
-			fmt.Printf("combo: %d\n", start)
-			calc := start % 100
-			if calc == 0 {
-				fmt.Printf("Calc: %d\n", calc )
+			if start % 100 == 0 {
 				count++
 			}
 		}
