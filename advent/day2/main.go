@@ -8,8 +8,8 @@ import (
 	"strconv"
 )
 
-func is_even(value int) bool {
-	if value % 2 == 0 {
+func is_even(value string) bool {
+	if len(value) % 2 == 0 {
 		return true
 	} else {
 		return false
@@ -17,6 +17,7 @@ func is_even(value int) bool {
 }
 
 func main() {
+	sum := 0
 
 	data, err := os.ReadFile("input.txt")
 	if err != nil {
@@ -39,9 +40,15 @@ func main() {
 			log.Fatal("Failed to parse bounds")
 		}
 		for i:=first_bound; i<=last_bound; i++ {
-			
-			id := is_even(i)
+			idString := strconv.Itoa(i)	
 
+			if len(idString) % 2 == 0 {
+				half := len(idString) / 2
+				if idString[:half] == idString[half:] {
+					sum += i
+				}
+			}
 		}
 	}
+	fmt.Printf("Sum: %d", sum)
 }
