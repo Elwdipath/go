@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func countdown(i int){
+func countdown(i int) {
 	fmt.Printf("%d\n", i)
 
 	if i <= 1 {
